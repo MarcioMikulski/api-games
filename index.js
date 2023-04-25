@@ -73,6 +73,25 @@ app.delete("/games/:id", (req,res) => {
   })
 });
 
+app.put("/games/:id", (req,res) => {
+  var id = req.params.id;
+  var title = req.body.title;
+  var year = req.body.year;
+  var price = req.body.price;
+   /* Category.update({title: title, slug: slugify(title)}, */
+  Games.update({title:title, year:year, price:price},{
+    where: {
+      id: id
+    }
+  }).then(games => {
+    if (games != undefined){
+      return res.status(200).json(games);
+    } else {
+      return res.status(400).send('Id invalido');
+    }
+     
+  })
+});
 
 
 /* app.use(bodyParser.urlencoded({extended:false}));
