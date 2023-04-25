@@ -47,11 +47,6 @@ app.get("/games", (req, res) => {
         
       });
 
-    
-
-    
-
-
 app.post("/games", (req, res) => {
     var games = req.body;
     console.log(games);
@@ -61,6 +56,22 @@ app.post("/games", (req, res) => {
     res.sendStatus(200);
     console.log("Game cadastrado");
 })
+
+app.delete("/games/:id", (req,res) => {
+  var id = req.params.id;
+  Games.destroy({
+    where: {
+      id: id
+    }
+  }).then(games => {
+    if (games != undefined){
+      return res.status(200).json(games);
+    } else {
+      return res.status(400).send('Id invalido');
+    }
+     
+  })
+});
 
 
 
