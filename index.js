@@ -54,14 +54,14 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 
-app.get("/games",  (req, res) => {
+app.get("/games", auth, (req, res) => {
     Games.findAll().then(games =>{
         res.send(games);
     })
     res.statusCode = 200;
     });
 
-    app.get("/games/:id", (req, res) => {
+    app.get("/games/:id", auth, (req, res) => {
         var id = req.params.id;
         Games.findOne({
           where: {
